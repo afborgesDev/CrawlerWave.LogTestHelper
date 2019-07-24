@@ -31,21 +31,11 @@ steps:
     includesymbols: true
     versioningScheme: 'off'
 
-
-# - task: NuGetCommand@2
-#   displayName: Packing
-#   continueOnError: false
-#   inputs:
-#     command: 'pack'
-#     packagesToPack: '**/*.csproj'
-#     includeSymbols: true
-#     basePath: './src'
-
-# - task: NuGetCommand@2
-#   displayName: Pushing to Nuget.org
-#   continueOnError: false
-#   inputs:
-#     command: 'push'
-#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-#     nuGetFeedType: 'external'
-#     publishFeedCredentials: 'Nuget.org CrawlerWave.LogTestHelper'
+- task: DotNetCoreCLI@2
+  displayName: Publishing to nuget.org
+  continueOnError: false
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'Nuget.org CrawlerWave.LogTestHelper'

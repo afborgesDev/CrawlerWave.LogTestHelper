@@ -27,7 +27,6 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
-    versioningScheme: 'byBuildNumber'
     includeSymbols: true
     basePath: './src'
 

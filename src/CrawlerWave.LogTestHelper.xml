@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CrawlerWave.LogTestHelper</name>
+    </assembly>
+    <members>
+        <member name="M:CrawlerWave.LogTestHelper.LogTestHelperInitialization.Create(System.Action{CrawlerWave.LogTestHelper.Configurations.WriteContext})">
+            <summary>
+            Creates and return a test sink and logger factory implementation for tests
+            </summary>
+            <param name="sinkTextWriteContext">
+            Example: WriteContext context = null; TestSink.MessageLogged += ctx =&gt; context = ctx;
+            </param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -13,5 +13,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: Build
+  continueOnError: false
+  inputs:
+    command: 'build'
+    arguments: '-c $(buildConfiguration)'
+    workingDirectory: './src'

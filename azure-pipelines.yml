@@ -30,7 +30,6 @@ steps:
     nobuild: true
     includesymbols: true
     versioningScheme: 'off'
-    buildProperties: './src'
 
 
 # - task: NuGetCommand@2

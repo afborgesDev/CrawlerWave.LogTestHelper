@@ -14,9 +14,28 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
-  displayName: Build
+  displayName: Building
   continueOnError: false
   inputs:
     command: 'build'
     arguments: '-c $(buildConfiguration)'
     workingDirectory: './src'
+
+- task: NuGetCommand@2
+  displayName: Packing
+  continueOnError: false
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byBuildNumber'
+    includeSymbols: true
+    basePath: './src'
+
+- task: NuGetCommand@2
+  displayName: Pushing to Nuget.org
+  continueOnError: false
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'Nuget.org CrawlerWave.LogTestHelper'

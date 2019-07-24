@@ -30,12 +30,19 @@ steps:
     nobuild: true
     includesymbols: true
     versioningScheme: 'off'
-
-- task: DotNetCoreCLI@2
-  displayName: Publishing to nuget.org
-  continueOnError: false
+    
+- task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'Nuget.org CrawlerWave.LogTestHelper'
+    verbosityPush: 'Normal'
+# - task: DotNetCoreCLI@2
+#   displayName: Publishing to nuget.org
+#   continueOnError: false
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+#     nuGetFeedType: 'external'
+#     publishFeedCredentials: 'Nuget.org CrawlerWave.LogTestHelper'

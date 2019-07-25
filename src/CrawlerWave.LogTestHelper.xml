@@ -4,6 +4,327 @@
         <name>CrawlerWave.LogTestHelper</name>
     </assembly>
     <members>
+        <member name="T:CrawlerWave.LogTestHelper.Configurations.BeginScopeContext">
+            <summary>
+            The custom Logger scope abstraction
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.BeginScopeContext.Scope">
+            <summary>
+            the scope object
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.BeginScopeContext.LoggerName">
+            <summary>
+            the logger 
+            </summary>
+        </member>
+        <member name="T:CrawlerWave.LogTestHelper.Configurations.ITestSink">
+            <summary>
+            This abstraction provides the methods write and begin scopes for cusotm log
+            </summary>
+        </member>
+        <member name="E:CrawlerWave.LogTestHelper.Configurations.ITestSink.MessageLogged">
+            <summary>
+            event to catch the message that was logged
+            </summary>
+        </member>
+        <member name="E:CrawlerWave.LogTestHelper.Configurations.ITestSink.ScopeStarted">
+            <summary>
+            event to catch the scope that was started
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.ITestSink.WriteEnabled">
+            <summary>
+            Checks if the writer are enabled
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.ITestSink.BeginEnabled">
+            <summary>
+            checks if the scoped was started
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.ITestSink.Scopes">
+            <summary>
+            the list of started scopes
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.ITestSink.Writes">
+            <summary>
+            the writed items
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Configurations.ITestSink.Write(CrawlerWave.LogTestHelper.Configurations.WriteContext)">
+            <summary>
+            write a new log
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Configurations.ITestSink.Begin(CrawlerWave.LogTestHelper.Configurations.BeginScopeContext)">
+            <summary>
+            start a new scope
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:CrawlerWave.LogTestHelper.Configurations.TestSink">
+            <summary>
+            This class provides the methods write and begin scopes for cusotm log
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Configurations.TestSink.#ctor(System.Func{CrawlerWave.LogTestHelper.Configurations.WriteContext,System.Boolean},System.Func{CrawlerWave.LogTestHelper.Configurations.BeginScopeContext,System.Boolean})">
+            <summary>
+            Create enabling write / starting a scope
+            </summary>
+            <param name="writeEnabled"></param>
+            <param name="beginEnabled"></param>
+        </member>
+        <member name="E:CrawlerWave.LogTestHelper.Configurations.TestSink.MessageLogged">
+            <summary>
+            event to catch the message that was logged
+            </summary>
+        </member>
+        <member name="E:CrawlerWave.LogTestHelper.Configurations.TestSink.ScopeStarted">
+            <summary>
+            event to catch the scope that was started
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.TestSink.WriteEnabled">
+            <summary>
+            Checks if the writer are enabled
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.TestSink.BeginEnabled">
+            <summary>
+            checks if the scoped was started
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.TestSink.Scopes">
+            <summary>
+            the list of started scopes
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.TestSink.Writes">
+            <summary>
+            the writed items
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Configurations.TestSink.EnableWithTypeName``1(CrawlerWave.LogTestHelper.Configurations.WriteContext)">
+            <summary>
+            sets the enable for an expecific logger by using the name
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Configurations.TestSink.EnableWithTypeName``1(CrawlerWave.LogTestHelper.Configurations.BeginScopeContext)">
+            <summary>
+            sets the enable for an expecific logger by using the type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Configurations.TestSink.Write(CrawlerWave.LogTestHelper.Configurations.WriteContext)">
+            <summary>
+            write a new log
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Configurations.TestSink.Begin(CrawlerWave.LogTestHelper.Configurations.BeginScopeContext)">
+            <summary>
+            start a new scope
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:CrawlerWave.LogTestHelper.Configurations.WriteContext">
+            <summary>
+            Represents the context for any write method on log
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.WriteContext.LogLevel">
+            <summary>
+            The level of the writed
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.WriteContext.EventId">
+            <summary>
+            the event id of the writed
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.WriteContext.State">
+            <summary>
+            the state of the writed
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.WriteContext.Exception">
+            <summary>
+            the exception of the writed if exists
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.WriteContext.Formatter">
+            <summary>
+            the method to format all writed
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.WriteContext.Scope">
+            <summary>
+            the writed scope
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.WriteContext.LoggerName">
+            <summary>
+            the writed loggername
+            </summary>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Configurations.WriteContext.Message">
+            <summary>
+            the formated write
+            </summary>
+        </member>
+        <member name="T:CrawlerWave.LogTestHelper.Logger.TestLogger">
+            <summary>
+            The custom implementation of ILogger
+            This implementation intercept each log and register on ITestSink
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLogger.#ctor(System.String,CrawlerWave.LogTestHelper.Configurations.ITestSink,System.Boolean)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="name"></param>
+            <param name="sink"></param>
+            <param name="enabled"></param>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLogger.#ctor(System.String,CrawlerWave.LogTestHelper.Configurations.ITestSink,System.Func{Microsoft.Extensions.Logging.LogLevel,System.Boolean})">
+            <summary>
+            creates a logger and inject the sink
+            </summary>
+            <param name="name"></param>
+            <param name="sink"></param>
+            <param name="filter"></param>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Logger.TestLogger.Name">
+            <summary>
+            Name of the Logger
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLogger.BeginScope``1(``0)">
+            <summary>
+            Starts a scope from ILogger
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="state"></param>
+            <returns>A TestDisposable for dispose</returns>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <summary>
+            Register any kind of log and saves on sink
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="logLevel"></param>
+            <param name="eventId"></param>
+            <param name="state"></param>
+            <param name="exception"></param>
+            <param name="formatter"></param>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Compare if the loglevel are None and differente the filter
+            </summary>
+            <param name="logLevel"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CrawlerWave.LogTestHelper.Logger.TestLoggerFactory">
+            <summary>
+            A custom LoggerFactory to provides a simple construction of ILogger with ITestSink
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerFactory.#ctor(CrawlerWave.LogTestHelper.Configurations.ITestSink,System.Boolean)">
+            <summary>
+            Creates a factory and inject the sink and the enable options
+            </summary>
+            <param name="sink"></param>
+            <param name="enabled"></param>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerFactory.CreateLogger(System.String)">
+            <summary>
+            Creates a new ILoggerd based on category name and injecting the sink and the enable status
+            </summary>
+            <param name="categoryName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerFactory.AddProvider(Microsoft.Extensions.Logging.ILoggerProvider)">
+            <summary>
+            Adds a new provider, but nos supported yet
+            </summary>
+            <param name="provider"></param>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerFactory.Dispose">
+            <summary>
+            The default implementation of IDispose
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerFactory.Dispose(System.Boolean)">
+            <summary>
+            the default implementation of IDispose
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider">
+            <summary>
+            An customized implementation from <see cref="T:Microsoft.Extensions.Logging.ILoggerProvider"/> ILoggerProvider
+            to add the ITestSink
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.#ctor(CrawlerWave.LogTestHelper.Configurations.ITestSink,System.Boolean)">
+            <summary>
+            Creates the provider and inject the ITestSink
+            </summary>
+            <param name="testSink"><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/></param>
+            <param name="isEnabled">enable or not the logger</param>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.#ctor(CrawlerWave.LogTestHelper.Configurations.ITestSink,System.Func{Microsoft.Extensions.Logging.LogLevel,System.Boolean})">
+            <summary>
+            Creats the provider and inject the ITestSink but also creates a filter for the registerd logs
+            </summary>
+            <param name="testSink"><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/></param>
+            <param name="filter">the filter for the registered logs on ITestSink</param>
+        </member>
+        <member name="P:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.Sink">
+            <summary>
+            The sink with all registerd logs
+            <see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/>
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.CreateLogger(System.String)">
+            <summary>
+            Creates a new ILogger based on Category name and using the sink and the filter 
+            </summary>
+            <param name="categoryName"></param>
+            <returns><see cref="T:Microsoft.Extensions.Logging.ILogger"/></returns>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.Dispose">
+            <summary>
+            the default implementation of IDispose
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.Dispose(System.Boolean)">
+            <summary>
+            the default implementation of IDispose
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:CrawlerWave.LogTestHelper.LogTestHelperInitialization">
+            <summary>
+            The initialization Class helpper
+            </summary>
+        </member>
+        <member name="M:CrawlerWave.LogTestHelper.LogTestHelperInitialization.Create">
+            <summary>
+            Creates a customized ITestSink and ILoggerFactory 
+            </summary>
+            <returns><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/> and <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/></returns>
+        </member>
         <member name="M:CrawlerWave.LogTestHelper.LogTestHelperInitialization.Create(System.Action{CrawlerWave.LogTestHelper.Configurations.WriteContext})">
             <summary>
             Creates and return a test sink and logger factory implementation for tests
@@ -11,7 +332,7 @@
             <param name="sinkTextWriteContext">
             Example: WriteContext context = null; TestSink.MessageLogged += ctx =&gt; context = ctx;
             </param>
-            <returns></returns>
+            <returns><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/> and <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/></returns>
         </member>
     </members>
 </doc>

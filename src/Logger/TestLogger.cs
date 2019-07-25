@@ -4,6 +4,10 @@ using System;
 
 namespace CrawlerWave.LogTestHelper.Logger
 {
+    /// <summary>
+    /// The custom implementation of ILogger
+    /// This implementation intercept each log and register on ITestSink
+    /// </summary>
     public class TestLogger : ILogger
     {
         private readonly ITestSink _sink;
@@ -11,11 +15,23 @@ namespace CrawlerWave.LogTestHelper.Logger
         private readonly Func<LogLevel, bool> _filter;
         private object _scope;
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="sink"></param>
+        /// <param name="enabled"></param>
         public TestLogger(string name, ITestSink sink, bool enabled)
             : this(name, sink, _ => enabled)
         {
         }
 
+        /// <summary>
+        /// creates a logger and inject the sink
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="sink"></param>
+        /// <param name="filter"></param>
         public TestLogger(string name, ITestSink sink, Func<LogLevel, bool> filter)
         {
             _sink = sink;
@@ -23,8 +39,17 @@ namespace CrawlerWave.LogTestHelper.Logger
             _filter = filter;
         }
 
+        /// <summary>
+        /// Name of the Logger
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Starts a scope from ILogger
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        /// <param name="state"></param>
+        /// <returns>A TestDisposable for dispose</returns>
         public IDisposable BeginScope<TState>(TState state)
         {
             _scope = state;
@@ -38,6 +63,15 @@ namespace CrawlerWave.LogTestHelper.Logger
             return TestDisposable.Instance;
         }
 
+        /// <summary>
+        /// Register any kind of log and saves on sink
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        /// <param name="logLevel"></param>
+        /// <param name="eventId"></param>
+        /// <param name="state"></param>
+        /// <param name="exception"></param>
+        /// <param name="formatter"></param>
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             if (!IsEnabled(logLevel))
@@ -57,6 +91,11 @@ namespace CrawlerWave.LogTestHelper.Logger
             });
         }
 
+        /// <summary>
+        /// Compare if the loglevel are None and differente the filter
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <returns></returns>
         public bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None && _filter(logLevel);
 
         private class TestDisposable : IDisposable

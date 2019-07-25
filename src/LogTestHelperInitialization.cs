@@ -5,8 +5,15 @@ using System;
 
 namespace CrawlerWave.LogTestHelper
 {
+    /// <summary>
+    /// The initialization Class helpper
+    /// </summary>
     public static class LogTestHelperInitialization
     {
+        /// <summary>
+        /// Creates a customized ITestSink and ILoggerFactory 
+        /// </summary>
+        /// <returns><see cref="ITestSink"/> and <see cref="ILoggerFactory"/></returns>
         public static (ITestSink, ILoggerFactory) Create()
         {
             var testSink = new TestSink();
@@ -20,7 +27,7 @@ namespace CrawlerWave.LogTestHelper
         /// <param name="sinkTextWriteContext">
         /// Example: WriteContext context = null; TestSink.MessageLogged += ctx =&gt; context = ctx;
         /// </param>
-        /// <returns></returns>
+        /// <returns><see cref="ITestSink"/> and <see cref="ILoggerFactory"/></returns>
         public static (ITestSink, ILoggerFactory) Create(Action<WriteContext> sinkTextWriteContext)
         {
             var testSink = new TestSink();

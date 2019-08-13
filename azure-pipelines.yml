@@ -38,11 +38,3 @@ steps:
     nuGetFeedType: 'external'
     publishFeedCredentials: 'Nuget.org service connection'
     verbosityPush: 'Normal'
-# - task: DotNetCoreCLI@2
-#   displayName: Publishing to nuget.org
-#   continueOnError: false
-#   inputs:
-#     command: 'push'
-#     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-#     nuGetFeedType: 'external'
-#     publishFeedCredentials: 'Nuget.org CrawlerWave.LogTestHelper'

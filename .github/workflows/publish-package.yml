@@ -1,1 +1,31 @@
 
+name: Publish Package
+on:
+  push:
+    branches: [ release ]
+  pull_request:
+    branches: [ release ]
+
+jobs:  
+  build:    
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
+        
+    steps:      
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Install dependencies
+        run: dotnet restore 
+      - name: Build
+        run: dotnet build --configuration Release --no-restore  
+      - name: Publish to Nuget
+        uses: brandedoutcast/publish-nuget@v2.5.5
+        with:
+          PROJECT_FILE_PATH: CrawlerWave.LogTestHelper.csproj
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+          INCLUDE_SYMBOLS: true    

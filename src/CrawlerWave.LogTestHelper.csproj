@@ -12,7 +12,7 @@
     <authors>Alexandre Borges</authors>
     <owners>Alexandre Borges</owners>
     <Description>Provides a Logger and an ITestSink to pass through application and make sure all logs are ok.</Description>
-    <Version>0.0.0.1</Version>
+    <Version>0.0.0.3</Version>
     <PackageReleaseNotes>
       <![CDATA[
         --- 0.0.0.1 ---
@@ -23,6 +23,9 @@
         --------------
         --- 0.0.0.2 ---
         - Adding code documentation
+        --------------------
+        --- 0.0.0.3 ---
+        - Migrate to .net 5
         --------------------
       ]]>
     </PackageReleaseNotes>

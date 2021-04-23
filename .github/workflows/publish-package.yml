@@ -13,7 +13,7 @@ jobs:
       workDirectory: ./src
     defaults:
       run:
-        working-directory: ${{workDirectory}}
+        working-directory: ${{env.workDirectory}}
         
     steps:      
       - uses: actions/checkout@v2
@@ -28,6 +28,6 @@ jobs:
       - name: Publish to Nuget
         uses: brandedoutcast/publish-nuget@v2.5.5
         with:
-          PROJECT_FILE_PATH: ${{workDirectory}}/CrawlerWave.LogTestHelper.csproj
+          PROJECT_FILE_PATH: ${{env.workDirectory}}/CrawlerWave.LogTestHelper.csproj
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
           INCLUDE_SYMBOLS: true    

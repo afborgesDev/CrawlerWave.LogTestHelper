@@ -17,8 +17,7 @@ namespace CrawlerWave.LogTestHelper.Logger
         /// </summary>
         /// <param name="testSink"><see cref="ITestSink"/></param>
         /// <param name="isEnabled">enable or not the logger</param>
-        public TestLoggerProvider(ITestSink testSink, bool isEnabled) :
-            this(testSink, _ => isEnabled)
+        public TestLoggerProvider(ITestSink testSink, bool isEnabled) : this(testSink, _ => isEnabled)
         {
         }
 

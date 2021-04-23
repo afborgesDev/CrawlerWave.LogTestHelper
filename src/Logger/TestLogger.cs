@@ -100,7 +100,7 @@ namespace CrawlerWave.LogTestHelper.Logger
 
         private class TestDisposable : IDisposable
         {
-            public static readonly TestDisposable Instance = new TestDisposable();
+            public static readonly TestDisposable Instance = new();
 
             #region IDisposable Support
 

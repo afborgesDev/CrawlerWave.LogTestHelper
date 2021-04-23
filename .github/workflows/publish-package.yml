@@ -7,7 +7,7 @@ on:
     branches: [ release ]
 
 jobs:  
-  build:    
+  publishing:    
     runs-on: ubuntu-latest
     env:
       workDirectory: ./src
@@ -30,4 +30,4 @@ jobs:
         with:
           PROJECT_FILE_PATH: ${{env.workDirectory}}/CrawlerWave.LogTestHelper.csproj
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
-          INCLUDE_SYMBOLS: true    
+          INCLUDE_SYMBOLS: false    

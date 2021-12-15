@@ -1,98 +1,102 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 
-namespace CrawlerWave.LogTestHelper.Configurations
+namespace CrawlerWave.LogTestHelper.Configurations;
+
+/// <summary>
+/// This class provides the methods write and begin scopes for cusotm log
+/// </summary>
+public class TestSink : ITestSink
 {
+    private ConcurrentQueue<BeginScopeContext> _scopes;
+    private ConcurrentQueue<WriteContext> _writes;
+
     /// <summary>
-    /// This class provides the methods write and begin scopes for cusotm log
+    /// Create enabling write / starting a scope
     /// </summary>
-    public class TestSink : ITestSink
+    /// <param name="writeEnabled"></param>
+    /// <param name="beginEnabled"></param>
+    public TestSink(
+        Func<WriteContext, bool>? writeEnabled = null,
+        Func<BeginScopeContext, bool>? beginEnabled = null)
     {
-        private ConcurrentQueue<BeginScopeContext> _scopes;
-        private ConcurrentQueue<WriteContext> _writes;
+        WriteEnabled = writeEnabled;
+        BeginEnabled = beginEnabled;
 
-        /// <summary>
-        /// Create enabling write / starting a scope
-        /// </summary>
-        /// <param name="writeEnabled"></param>
-        /// <param name="beginEnabled"></param>
-        public TestSink(
-            Func<WriteContext, bool> writeEnabled = null,
-            Func<BeginScopeContext, bool> beginEnabled = null)
-        {
-            WriteEnabled = writeEnabled;
-            BeginEnabled = beginEnabled;
+        _scopes = new ConcurrentQueue<BeginScopeContext>();
+        _writes = new ConcurrentQueue<WriteContext>();
+    }
 
-            _scopes = new ConcurrentQueue<BeginScopeContext>();
-            _writes = new ConcurrentQueue<WriteContext>();
-        }
+    /// <summary>
+    /// event to catch the message that was logged
+    /// </summary>
+    public event Action<WriteContext>? MessageLogged;
 
-        /// <summary>
-        /// event to catch the message that was logged
-        /// </summary>
-        public event Action<WriteContext> MessageLogged;
+    /// <summary>
+    /// event to catch the scope that was started
+    /// </summary>
+    public event Action<BeginScopeContext>? ScopeStarted;
 
-        /// <summary>
-        /// event to catch the scope that was started
-        /// </summary>
-        public event Action<BeginScopeContext> ScopeStarted;
+    /// <summary>
+    /// Checks if the writer are enabled
+    /// </summary>
+    public Func<WriteContext, bool>? WriteEnabled { get; set; }
 
-        /// <summary>
-        /// Checks if the writer are enabled
-        /// </summary>
-        public Func<WriteContext, bool> WriteEnabled { get; set; }
+    /// <summary>
+    /// checks if the scoped was started
+    /// </summary>
+    public Func<BeginScopeContext, bool>? BeginEnabled { get; set; }
 
-        /// <summary>
-        /// checks if the scoped was started
-        /// </summary>
-        public Func<BeginScopeContext, bool> BeginEnabled { get; set; }
+    /// <summary>
+    /// the list of started scopes
+    /// </summary>
+    public IProducerConsumerCollection<BeginScopeContext> Scopes { get => _scopes; set => _scopes = new ConcurrentQueue<BeginScopeContext>(value); }
 
-        /// <summary>
-        /// the list of started scopes
-        /// </summary>
-        public IProducerConsumerCollection<BeginScopeContext> Scopes { get => _scopes; set => _scopes = new ConcurrentQueue<BeginScopeContext>(value); }
+    /// <summary>
+    /// the writed items
+    /// </summary>
+    public IProducerConsumerCollection<WriteContext> Writes { get => _writes; set => _writes = new ConcurrentQueue<WriteContext>(value); }
 
-        /// <summary>
-        /// the writed items
-        /// </summary>
-        public IProducerConsumerCollection<WriteContext> Writes { get => _writes; set => _writes = new ConcurrentQueue<WriteContext>(value); }
+    /// <summary>
+    /// sets the enable for an expecific logger by using the name
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public static bool EnableWithTypeName<T>(WriteContext? context)
+    {
+        if (context is null || string.IsNullOrWhiteSpace(context.LoggerName))
+            return false;
 
-        /// <summary>
-        /// sets the enable for an expecific logger by using the name
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public static bool EnableWithTypeName<T>(WriteContext context) => context.LoggerName.Equals(typeof(T).FullName);
+        return context.LoggerName.Equals(typeof(T).FullName);
+    }
 
-        /// <summary>
-        /// sets the enable for an expecific logger by using the type
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public static bool EnableWithTypeName<T>(BeginScopeContext context) => context.LoggerName.Equals(typeof(T).FullName);
+    /// <summary>
+    /// sets the enable for an expecific logger by using the type
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public static bool EnableWithTypeName<T>(BeginScopeContext context)
+    {
+        if (context is null || string.IsNullOrWhiteSpace(context.LoggerName))
+            return false;
 
-        /// <summary>
-        /// write a new log
-        /// </summary>
-        /// <param name="context"></param>
-        public void Write(WriteContext context)
-        {
-            if (WriteEnabled == null || WriteEnabled(context))
-                _writes.Enqueue(context);
-            MessageLogged?.Invoke(context);
-        }
+        return context.LoggerName.Equals(typeof(T).FullName);
+    }
 
-        /// <summary>
-        /// start a new scope
-        /// </summary>
-        /// <param name="context"></param>
-        public void Begin(BeginScopeContext context)
-        {
-            if (BeginEnabled == null || BeginEnabled(context))
-                _scopes.Enqueue(context);
-            ScopeStarted?.Invoke(context);
-        }
+    /// <inheritdoc/>
+    public void Write(WriteContext context)
+    {
+        if (WriteEnabled == null || WriteEnabled(context))
+            _writes.Enqueue(context);
+        MessageLogged?.Invoke(context);
+    }
+
+    /// <inheritdoc/>
+    public void Begin(BeginScopeContext context)
+    {
+        if (BeginEnabled == null || BeginEnabled(context))
+            _scopes.Enqueue(context);
+        ScopeStarted?.Invoke(context);
     }
 }

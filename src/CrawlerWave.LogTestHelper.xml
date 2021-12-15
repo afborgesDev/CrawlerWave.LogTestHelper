@@ -16,7 +16,7 @@
         </member>
         <member name="P:CrawlerWave.LogTestHelper.Configurations.BeginScopeContext.LoggerName">
             <summary>
-            the logger 
+            the logger
             </summary>
         </member>
         <member name="T:CrawlerWave.LogTestHelper.Configurations.ITestSink">
@@ -125,10 +125,7 @@
             <returns></returns>
         </member>
         <member name="M:CrawlerWave.LogTestHelper.Configurations.TestSink.Write(CrawlerWave.LogTestHelper.Configurations.WriteContext)">
-            <summary>
-            write a new log
-            </summary>
-            <param name="context"></param>
+            <inheritdoc />
         </member>
         <member name="M:CrawlerWave.LogTestHelper.Configurations.TestSink.Begin(CrawlerWave.LogTestHelper.Configurations.BeginScopeContext)">
             <summary>
@@ -272,7 +269,7 @@
         </member>
         <member name="T:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider">
             <summary>
-            An customized implementation from <see cref="T:Microsoft.Extensions.Logging.ILoggerProvider"/> ILoggerProvider
+            An customized implementation from <see cref="T:Microsoft.Extensions.Logging.ILoggerProvider" /> ILoggerProvider
             to add the ITestSink
             </summary>
         </member>
@@ -280,28 +277,28 @@
             <summary>
             Creates the provider and inject the ITestSink
             </summary>
-            <param name="testSink"><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/></param>
+            <param name="testSink"><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink" /></param>
             <param name="isEnabled">enable or not the logger</param>
         </member>
         <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.#ctor(CrawlerWave.LogTestHelper.Configurations.ITestSink,System.Func{Microsoft.Extensions.Logging.LogLevel,System.Boolean})">
             <summary>
             Creats the provider and inject the ITestSink but also creates a filter for the registerd logs
             </summary>
-            <param name="testSink"><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/></param>
+            <param name="testSink"><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink" /></param>
             <param name="filter">the filter for the registered logs on ITestSink</param>
         </member>
         <member name="P:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.Sink">
             <summary>
             The sink with all registerd logs
-            <see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/>
+            <see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink" />
             </summary>
         </member>
         <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.CreateLogger(System.String)">
             <summary>
-            Creates a new ILogger based on Category name and using the sink and the filter 
+            Creates a new ILogger based on Category name and using the sink and the filter
             </summary>
             <param name="categoryName"></param>
-            <returns><see cref="T:Microsoft.Extensions.Logging.ILogger"/></returns>
+            <returns><see cref="T:Microsoft.Extensions.Logging.ILogger" /></returns>
         </member>
         <member name="M:CrawlerWave.LogTestHelper.Logger.TestLoggerProvider.Dispose">
             <summary>
@@ -321,9 +318,9 @@
         </member>
         <member name="M:CrawlerWave.LogTestHelper.LogTestHelperInitialization.Create">
             <summary>
-            Creates a customized ITestSink and ILoggerFactory 
+            Creates a customized ITestSink and ILoggerFactory
             </summary>
-            <returns><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/> and <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/></returns>
+            <returns><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink" /> and <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory" /></returns>
         </member>
         <member name="M:CrawlerWave.LogTestHelper.LogTestHelperInitialization.Create(System.Action{CrawlerWave.LogTestHelper.Configurations.WriteContext})">
             <summary>
@@ -332,7 +329,7 @@
             <param name="sinkTextWriteContext">
             Example: WriteContext context = null; TestSink.MessageLogged += ctx =&gt; context = ctx;
             </param>
-            <returns><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink"/> and <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/></returns>
+            <returns><see cref="T:CrawlerWave.LogTestHelper.Configurations.ITestSink" /> and <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory" /></returns>
         </member>
     </members>
 </doc>
